@@ -13,8 +13,8 @@ const DOT_CONFIG = {
   margin: 8,     // 圆点间距
   maxWidth: 1200,// 画布最大宽度
   colors: {
-    past: '#ffffff',    // 已过去的圆点颜色
-    current: '#ff7d00', // 今天的圆点颜色
+    past: '#fafad2',    // 已过去的圆点颜色
+    current: '#ff1493', // 今天的圆点颜色
     future: '#cccccc'   // 未来的圆点颜色
   }
 };
