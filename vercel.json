@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/progress.png", "destination": "/api/progress.png" }
+  ]
+}
