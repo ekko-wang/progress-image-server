@@ -32,10 +32,14 @@
     - `day`：按“年度每天”显示（今年 1 月 1 日到 12 月 31 日，每天一个点）。
     - `week`：按“年度每周”显示（从年初开始每周一个点）。
     - `range`：自定义起止日期，每天一个点。
+    - `birthday`：生日模式，用圆点表示从出生到 90 岁整段人生的进度。
 
 - **当 `viewType = range` 时额外必填**
   - `startDate`：开始日期，格式 `YYYYMMDD`，例如 `20260101`。
   - `endDate`：结束日期，格式 `YYYYMMDD`，例如 `20261231`。
+
+- **当 `viewType = birthday` 时额外必填**
+  - `birthDate`：出生日期，格式 `YYYYMMDD`，例如 `19900101`。
 
 - **校验逻辑**
   - 未传 `viewType`：抛错，提示必须传 `viewType`，并说明可选值。
@@ -88,6 +92,22 @@
 
 最终三种模式都会得到同一种结构：`timeUnits = ['past', 'past', 'current', 'future', ...]`。
 
+### 4. `viewType = birthday`（生日模式，人生进度）
+
+- 输入：`birthDate`（出生日期，`YYYYMMDD`），假定预估寿命为 90 年。
+- 终点：`lifeEnd = birthDate + 90 年 - 1 天`。
+- 颗粒度：**一个圆点代表 14 天**（约两周），在“点数量不过于密集”和“每个点又不至于太大一段时间”之间做权衡。
+- 循环方式：
+  - 从 `blockStart = birthDate` 开始，每个 block 覆盖 `daysPerDot = 14` 天：
+    - `blockEnd = blockStart + 13 天`。
+  - 对每一个 block：
+    - 若 `blockEnd < today` → `'past'`。
+    - 若 `blockStart > today` → `'future'`。
+    - 否则（`today` 落在 `[blockStart, blockEnd]` 内）→ `'current'`。
+  - 每次循环结束后：`blockStart += 14 天`，直到超过 `lifeEnd`。
+
+最终 birthday 模式也会生成一个 `timeUnits` 数组，数组长度约等于：`90 年 × 365 天 / 14 ≈ 2340` 个圆点。
+
 ## 五、画布和圆点排布
 
 相关配置在 `DOT_CONFIG` 中：
@@ -135,6 +155,8 @@
   - `GET /progress.png?viewType=week`
 - 自定义日期范围：
   - `GET /progress.png?viewType=range&startDate=20260101&endDate=20261231`
+ - 生日模式（人生进度）：
+  - `GET /progress.png?viewType=birthday&birthDate=19900101`
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
 
