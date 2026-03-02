@@ -6,8 +6,12 @@
 
 - **用途**：对外提供一个返回 PNG 图片的 HTTP 接口，用来展示一段时间范围内的进度（用圆点表示）。
 - **运行形态**：
-  - 本地 / 局域网：`index.js` 使用 `express` 起服务，提供 `GET /progress.png`。
-  - 线上（Vercel）：`api/progress.png/index.js` 作为 Serverless 函数，对外的 URL 类似 `https://你的域名/api/progress.png`。
+  - 本地 / 局域网：`index.js` 使用 `express` 起服务，提供 **新规范路径** `GET /dotpaper.png`（同时兼容旧路径 `/progress.png`）。
+  - 线上（Vercel）：
+    - `api/dotpaper.png/index.js` 作为 Serverless 函数。
+    - `vercel.json` 通过 rewrites 暴露以下路径：
+      - 新规范：`/dotpaper.png` → `/api/dotpaper.png`
+      - 兼容旧路径：`/progress.png` → `/api/dotpaper.png`
 - **核心逻辑只有一份**：`lib/progress-image.js` 中的 `generateProgressImage(query)`，本地和 Vercel 都复用。
 - **依赖说明**：
   - `jimp`：纯 JS 图片处理库，用于在内存中生成 PNG。
@@ -149,14 +153,17 @@
 
 ## 七、典型调用方式示例
 
+推荐使用新规范路径 `/dotpaper.png`，旧路径 `/progress.png` 目前仍然可用，但仅作兼容，后续可以考虑下线。
+
 - 年度按天：
-  - `GET /progress.png?viewType=day`
+  - `GET /dotpaper.png?viewType=day`
 - 年度按周：
-  - `GET /progress.png?viewType=week`
+  - `GET /dotpaper.png?viewType=week`
 - 自定义日期范围：
-  - `GET /progress.png?viewType=range&startDate=20260101&endDate=20261231`
- - 生日模式（人生进度）：
-  - `GET /progress.png?viewType=birthday&birthDate=19900101`
+  - `GET /dotpaper.png?viewType=range&startDate=20260101&endDate=20261231`
+- 生日模式（人生进度）：
+  - `GET /dotpaper.png?viewType=birthday&birthDate=19900101`
+
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
 

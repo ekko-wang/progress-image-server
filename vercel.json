@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/progress.png", "destination": "/api/progress.png" }
+    { "source": "/dotpaper.png", "destination": "/api/dotpaper.png" },
+    { "source": "/progress.png", "destination": "/api/dotpaper.png" }
   ]
 }
