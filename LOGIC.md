@@ -98,7 +98,8 @@
 
 - 输入：`birthDate`（出生日期，`YYYYMMDD`），假定预估寿命为 90 年。
 - 终点：`lifeEnd = birthDate + 90 年 - 1 天`。
-- 颗粒度：**一个圆点代表 14 天**（约两周），在“点数量不过于密集”和“每个点又不至于太大一段时间”之间做权衡。
+- 时间颗粒度（内部计算）：**一个圆点代表 14 天**（约两周）。
+- 显示颗粒度（视觉层）：为贴近移动端参考视觉，会把内部点阵按分组做下采样（最多约 390 个显示点），用于控制布局密度与留白。
 - 循环方式：
   - 从 `blockStart = birthDate` 开始，每个 block 覆盖 `daysPerDot = 14` 天：
     - `blockEnd = blockStart + 13 天`。
@@ -108,11 +109,11 @@
     - 否则（`today` 落在 `[blockStart, blockEnd]` 内）→ `'current'`。
   - 每次循环结束后：`blockStart += 14 天`，直到超过 `lifeEnd`。
 
-最终 birthday 模式也会生成一个 `timeUnits` 数组，数组长度约等于：`90 年 × 365 天 / 14 ≈ 2340` 个圆点。
+最终 birthday 模式会先得到内部 `timeUnits`（约 `90 年 × 365 / 14 ≈ 2340`），再在渲染阶段进行视觉下采样，生成更接近参考图的点阵排版。
 
 ## 五、画布和圆点排布
 
-相关配置在 `DOT_CONFIG` 中：
+`day / week / range` 使用 `DOT_CONFIG`（通用样式）：
 
 - `size`: 单个圆点的直径（像素），当前是 `16`。
 - `margin`: 圆点之间的水平/垂直间距，当前是 `8`。
@@ -131,6 +132,17 @@
 - 画布高度：`canvasHeight = totalRows * dotTotalSize`。
 - 背景颜色固定为浅灰色（`0xf5f5f5ff`）。
 
+`birthday` 使用 `BIRTHDAY_STYLE`（专用样式，贴近参考图）：
+
+- 画布：`1080 x 1920`（竖版）。
+- 背景：深色 `#151618`。
+- 点阵：居中窄列布局（固定列数 `16`），顶部与底部留较多空白。
+- 颜色：
+  - `past`: `#f2f2f2`（亮白）
+  - `current`: `#f27a49`（橙色）
+  - `future`: `#3f4044`（深灰）
+- 底部文案：`{leftDays}d left · {progressPercent}%`，其中前半段橙色，后半段灰色。
+
 ## 六、绘制逻辑（Jimp）
 
 1. 创建画布：
@@ -144,7 +156,7 @@
        - `x = col * dotTotalSize + margin / 2`
        - `y = row * dotTotalSize + margin / 2`
    - 在 `size × size` 的小方块内，以圆心为中心，根据 \( cx^2 + cy^2 \le r^2 \) 判断是否在圆内，使用对应状态颜色填充。
-3. 已过去状态（`status === 'past'`）的描边：
+3. 已过去状态（`status === 'past'`）的描边（仅通用样式）：
    - 单独再用浅灰色（`#cccccc`）扫描一遍 `size × size`，只在靠近圆半径边缘的一圈像素上着色，形成圆环描边效果。
 4. 最终：
    - 调用 `image.getBufferAsync(Jimp.MIME_PNG)` 返回 PNG 二进制 `Buffer`。
