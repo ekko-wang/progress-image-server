@@ -176,7 +176,7 @@
 - 自定义日期范围：
   - `GET /dotpaper?viewType=range&startDate=20260101&endDate=20261231`
 - 生日模式（人生进度）：
-  - `GET /dotpaper?viewType=birthday&birthDate=19900101`
+  - `GET https://progress-image-server.vercel.app/dotpaper?viewType=birthday&birthDate=19900101`
 
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
