@@ -113,7 +113,11 @@
 
 ## 五、画布和圆点排布
 
-`day / week / range` 使用 `DOT_CONFIG`（通用样式）：
+`day / week / range / birthday` 统一使用深色风格的点阵样式（贴近参考图），并在底部绘制：`{leftDays}d left · {progressPercent}%`。
+
+说明：
+- `birthday` 会先按 14 天粒度生成内部 timeUnits，再做视觉下采样控制密度与留白。
+- `day / week / range` 直接基于各自时间范围生成 timeUnits，并用同一套样式渲染。
 
 - `size`: 单个圆点的直径（像素），当前是 `16`。
 - `margin`: 圆点之间的水平/垂直间距，当前是 `8`。
@@ -157,8 +161,7 @@
        - `x = col * dotTotalSize + margin / 2`
        - `y = row * dotTotalSize + margin / 2`
    - 在 `size × size` 的小方块内，以圆心为中心，根据 \( cx^2 + cy^2 \le r^2 \) 判断是否在圆内，使用对应状态颜色填充。
-3. 已过去状态（`status === 'past'`）的描边（仅通用样式）：
-   - 单独再用浅灰色（`#cccccc`）扫描一遍 `size × size`，只在靠近圆半径边缘的一圈像素上着色，形成圆环描边效果。
+3.（已移除）旧版通用样式曾对 `past` 点绘制描边；目前所有模式统一为参考图风格，不再绘制描边。
 4. 最终：
    - 调用 `image.getBufferAsync(Jimp.MIME_PNG)` 返回 PNG 二进制 `Buffer`。
 
