@@ -169,14 +169,16 @@
 
 唯一路径为 `/dotpaper`。
 
+**必传参数**：`width` 和 `height`（图片尺寸，单位为像素）
+
 - 年度按天：
-  - `GET /dotpaper?viewType=day`
+  - `GET /dotpaper?viewType=day&width=1080&height=1920`
 - 年度按周：
-  - `GET /dotpaper?viewType=week`
+  - `GET /dotpaper?viewType=week&width=1080&height=1080`
 - 自定义日期范围：
-  - `GET /dotpaper?viewType=range&startDate=20260101&endDate=20261231`
+  - `GET /dotpaper?viewType=range&startDate=20260101&endDate=20261231&width=1080&height=1920`
 - 生日模式（人生进度）：
-  - `GET https://progress-image-server.vercel.app/dotpaper?viewType=birthday&birthDate=19900101`
+  - `GET https://progress-image-server.vercel.app/dotpaper?viewType=birthday&birthDate=19900101&width=1080&height=1920`
 
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
