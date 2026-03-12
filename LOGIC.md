@@ -175,6 +175,8 @@
   - `GET /dotpaper?viewType=day&width=1080&height=1920`
 - 年度按周：
   - `GET /dotpaper?viewType=week&width=1080&height=1080`
+- 年度按月：
+  - `GET /dotpaper?viewType=month&width=1080&height=1920`
 - 自定义日期范围：
   - `GET /dotpaper?viewType=range&startDate=20260101&endDate=20261231&width=1080&height=1920`
 - 生日模式（人生进度）：
