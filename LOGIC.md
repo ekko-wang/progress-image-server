@@ -7,10 +7,10 @@
 - **用途**：对外提供一个返回 PNG 图片的 HTTP 接口，用来展示一段时间范围内的进度（用圆点表示）。
 - **运行形态**：
   - 本地 / 局域网：`index.js` 使用 `express` 起服务，路径为 `GET /dotpaper`。
-  - 线上（Vercel）：
-    - `api/dotpaper/index.js` 作为 Serverless 函数。
-    - `vercel.json` 通过 rewrites 将 `/dotpaper` → `/api/dotpaper`。
-- **核心逻辑只有一份**：`lib/progress-image.js` 中的 `generateProgressImage(query)`，本地和 Vercel 都复用。
+  - 线上（EdgeOne Pages）：
+    - `node-functions/index.js` 处理根路径 `/`（返回使用说明）。
+    - `node-functions/dotpaper.js` 处理 `/dotpaper`（返回图片或提示页）。
+- **核心逻辑只有一份**：`lib/progress-image.js` 中的 `generateProgressImage(query)`，本地和 EdgeOne 都复用。
 - **依赖说明**：
   - `jimp`：纯 JS 图片处理库，用于在内存中生成 PNG。
   - `dayjs`：轻量日期库，需额外加载 `dayjs/plugin/weekOfYear` 插件才能使用 `.week()` 方法（按周模式依赖此插件）。
@@ -23,7 +23,7 @@
   - 成功：`Content-Type: image/png`，Body 为 PNG 二进制。
   - 失败：HTTP 400 或 405，Body 为错误文案字符串（包含中文提示）。
 - **禁止的方法**：
-  - Vercel 版本如果不是 `GET`，直接返回 405：`Method Not Allowed`。
+  - EdgeOne 版本如果不是 `GET`，直接返回 405：`Method Not Allowed`。
 
 ## 三、请求参数
 
@@ -45,7 +45,8 @@
   - `birthDate`：出生日期，格式 `YYYYMMDD`，例如 `19900101`。
 
 - **校验逻辑**
-  - 未传 `viewType`：抛错，提示必须传 `viewType`，并说明可选值。
+  - `/dotpaper` 未传任何参数：返回使用说明页面（200），不报错。
+  - 传了参数但未传/传错 `viewType`：返回 400 错误文案。
   - `viewType = range` 且未传 `startDate` 或 `endDate`：抛错，提示两者都必传。
   - 起止日期格式错误或 `endDate < startDate`：抛错，提示日期必须是 `YYYYMMDD` 且结束日期 ≥ 开始日期。
 
@@ -185,4 +186,3 @@
 
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
-

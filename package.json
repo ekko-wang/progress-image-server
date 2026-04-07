@@ -1,14 +1,22 @@
 {
   "name": "progress-image-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dotpaper image API for ADHD-friendly focus wallpapers, deployed on EdgeOne Pages Node Functions.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "vercel dev",
+    "dev": "node index.js",
+    "edge:dev": "edgeone pages dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "dotpaper",
+    "wallpaper",
+    "progress",
+    "edgeone-pages",
+    "node-functions",
+    "adhd"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",

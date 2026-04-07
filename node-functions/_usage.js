@@ -1,10 +1,4 @@
-// Vercel Serverless：进度图接口（逻辑在 lib/progress-image.js）
-const { generateProgressImage } = require('../../lib/progress-image');
-
-function sendUsageResponse(req, res) {
-  const host = req.headers['x-forwarded-host'] || req.headers.host || 'progress-image-server.vercel.app';
-  const proto = req.headers['x-forwarded-proto'] || 'https';
-  const base = `${proto}://${host}/dotpaper`;
+function usageHtml(base) {
   const links = [
     { label: '本日', href: `${base}?viewType=today` },
     { label: '本月', href: `${base}?viewType=month` },
@@ -14,7 +8,7 @@ function sendUsageResponse(req, res) {
     { label: '生日', href: `${base}?viewType=birthday&birthDate=19900101&targetAge=90` }
   ];
 
-  const html = `<!doctype html>
+  return `<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
@@ -42,28 +36,25 @@ function sendUsageResponse(req, res) {
   </div>
 </body>
 </html>`;
-
-  res.status(200).setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(html);
 }
 
-module.exports = async (req, res) => {
-  if (req.method !== 'GET') {
-    res.status(405).send('Method Not Allowed');
-    return;
-  }
+function responseHtml(html, status = 200) {
+  return new Response(html, {
+    status,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-cache'
+    }
+  });
+}
 
-  if (!req.query || Object.keys(req.query).length === 0) {
-    sendUsageResponse(req, res);
-    return;
-  }
+function methodNotAllowed() {
+  return new Response('Method Not Allowed', { status: 405 });
+}
 
-  try {
-    const buffer = await generateProgressImage(req.query || {});
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.send(buffer);
-  } catch (error) {
-    res.status(400).send(`❌ 错误：${error.message}`);
-  }
+module.exports = {
+  usageHtml,
+  responseHtml,
+  methodNotAllowed
 };
+
