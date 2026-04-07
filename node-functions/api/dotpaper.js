@@ -1,4 +1,4 @@
-const { generateProgressImage } = require('../lib/progress-image');
+const { generateProgressImage } = require('../../lib/progress-image');
 const { usageHtml, responseHtml, methodNotAllowed } = require('./_usage');
 
 function searchParamsToObject(searchParams) {
@@ -52,4 +52,3 @@ module.exports = {
   onRequestGet,
   default: onRequest
 };
-

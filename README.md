@@ -14,6 +14,9 @@ It is deployed with **EdgeOne Pages Node Functions**.
 - `/dotpaper?...`  
   Returns a PNG image for the requested mode.
 
+Note: In EdgeOne Pages, Cloud Functions are mounted under `/api/*`.
+`edgeone.json` redirects `/` and `/dotpaper` to `/api` and `/api/dotpaper`.
+
 ## Supported Modes
 
 - `viewType=today`
@@ -25,8 +28,8 @@ It is deployed with **EdgeOne Pages Node Functions**.
 ## Project Structure
 
 - `lib/progress-image.js`: core image generation logic
-- `node-functions/index.js`: root usage handler
-- `node-functions/dotpaper.js`: image API handler
+- `node-functions/api/index.js`: root usage handler
+- `node-functions/api/dotpaper.js`: image API handler
 - `edgeone.json`: EdgeOne Pages runtime config
 
 ## Local Run
