@@ -3,7 +3,7 @@
 Dotpaper image API for ADHD-friendly focus wallpapers.
 
 This service generates PNG progress wallpapers based on URL query parameters.  
-It is deployed with **EdgeOne Pages Cloud Functions**.
+It is deployed with **EdgeOne Pages Node Functions**.
 
 ## Endpoints
 
@@ -25,8 +25,8 @@ It is deployed with **EdgeOne Pages Cloud Functions**.
 ## Project Structure
 
 - `lib/progress-image.js`: core image generation logic
-- `cloud-functions/index.js`: root usage handler
-- `cloud-functions/dotpaper.js`: image API handler
+- `node-functions/index.js`: root usage handler
+- `node-functions/dotpaper.js`: image API handler
 - `edgeone.json`: EdgeOne Pages runtime config
 
 ## Local Run
