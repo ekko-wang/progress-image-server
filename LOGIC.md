@@ -12,6 +12,7 @@
     - `functions/dotpaper.js` 处理 `/dotpaper`（返回图片或提示页）。
     - `functions/api/index.js` 处理 `/api`（返回使用说明，兼容入口）。
     - `functions/api/dotpaper.js` 处理 `/api/dotpaper`（返回图片或提示页，兼容入口）。
+    - 额外保留 `node-functions/*` 同结构镜像，兼容不同构建器的目录识别差异。
 - **核心逻辑只有一份**：`lib/progress-image.js` 中的 `generateProgressImage(query)`，本地和 EdgeOne 都复用。
 - **依赖说明**：
   - `jimp`：纯 JS 图片处理库，用于在内存中生成 PNG。

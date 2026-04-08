@@ -17,6 +17,8 @@ It is deployed with **EdgeOne Pages Node Functions**.
   Returns a simple usage page.
 - `/api/dotpaper?...`  
   API alias route for EdgeOne function namespace.
+- `/health` or `/api/health`  
+  Health check route, should return `ok`.
 
 ## Supported Modes
 
@@ -33,6 +35,7 @@ It is deployed with **EdgeOne Pages Node Functions**.
 - `functions/dotpaper.js`: image API (`/dotpaper`)
 - `functions/api/index.js`: usage alias (`/api`)
 - `functions/api/dotpaper.js`: image API alias (`/api/dotpaper`)
+- `node-functions/*`: compatibility mirror for runtimes that still detect this directory name
 - `edgeone.json`: EdgeOne Pages runtime config
 
 ## Local Run
