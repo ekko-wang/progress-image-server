@@ -1,16 +1,4 @@
 {
-  "NodeVersion": "20",
-  "installCommand": "npm ci",
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/api",
-      "statusCode": 302
-    },
-    {
-      "source": "/dotpaper",
-      "destination": "/api/dotpaper",
-      "statusCode": 302
-    }
-  ]
+  "nodeVersion": "20",
+  "installCommand": "npm ci"
 }

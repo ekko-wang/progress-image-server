@@ -13,9 +13,10 @@ It is deployed with **EdgeOne Pages Node Functions**.
   Returns a usage page when no query is provided.
 - `/dotpaper?...`  
   Returns a PNG image for the requested mode.
-
-Note: In EdgeOne Pages, Cloud Functions are mounted under `/api/*`.
-`edgeone.json` redirects `/` and `/dotpaper` to `/api` and `/api/dotpaper`.
+- `/api`  
+  Returns a simple usage page.
+- `/api/dotpaper?...`  
+  API alias route for EdgeOne function namespace.
 
 ## Supported Modes
 
@@ -28,8 +29,10 @@ Note: In EdgeOne Pages, Cloud Functions are mounted under `/api/*`.
 ## Project Structure
 
 - `lib/progress-image.js`: core image generation logic
-- `node-functions/api/index.js`: root usage handler
-- `node-functions/api/dotpaper.js`: image API handler
+- `node-functions/index.js`: usage handler (`/`)
+- `node-functions/dotpaper.js`: image API (`/dotpaper`)
+- `node-functions/api/index.js`: usage alias (`/api`)
+- `node-functions/api/dotpaper.js`: image API alias (`/api/dotpaper`)
 - `edgeone.json`: EdgeOne Pages runtime config
 
 ## Local Run

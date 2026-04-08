@@ -1,9 +1,9 @@
-const { usageHtml, responseHtml, methodNotAllowed } = require('./_usage');
+const { usageHtml, responseHtml, methodNotAllowed } = require('../_usage');
 
 async function onRequestGet(context) {
   const request = context.request;
   const url = new URL(request.url);
-  const base = `${url.origin}/dotpaper`;
+  const base = `${url.origin}/api/dotpaper`;
   return responseHtml(usageHtml(base));
 }
 
@@ -20,4 +20,3 @@ module.exports = {
   onRequestGet,
   default: onRequest
 };
-

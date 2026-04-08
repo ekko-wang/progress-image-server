@@ -8,9 +8,10 @@
 - **运行形态**：
   - 本地 / 局域网：`index.js` 使用 `express` 起服务，路径为 `GET /dotpaper`。
   - 线上（EdgeOne Pages）：
-    - `node-functions/api/index.js` 处理 `/api`（返回使用说明）。
-    - `node-functions/api/dotpaper.js` 处理 `/api/dotpaper`（返回图片或提示页）。
-    - `edgeone.json` 将 `/` 重定向到 `/api`，将 `/dotpaper` 重定向到 `/api/dotpaper`。
+    - `node-functions/index.js` 处理 `/`（返回使用说明）。
+    - `node-functions/dotpaper.js` 处理 `/dotpaper`（返回图片或提示页）。
+    - `node-functions/api/index.js` 处理 `/api`（返回使用说明，兼容入口）。
+    - `node-functions/api/dotpaper.js` 处理 `/api/dotpaper`（返回图片或提示页，兼容入口）。
 - **核心逻辑只有一份**：`lib/progress-image.js` 中的 `generateProgressImage(query)`，本地和 EdgeOne 都复用。
 - **依赖说明**：
   - `jimp`：纯 JS 图片处理库，用于在内存中生成 PNG。
