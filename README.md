@@ -29,10 +29,10 @@ It is deployed with **EdgeOne Pages Node Functions**.
 ## Project Structure
 
 - `lib/progress-image.js`: core image generation logic
-- `node-functions/index.js`: usage handler (`/`)
-- `node-functions/dotpaper.js`: image API (`/dotpaper`)
-- `node-functions/api/index.js`: usage alias (`/api`)
-- `node-functions/api/dotpaper.js`: image API alias (`/api/dotpaper`)
+- `functions/index.js`: usage handler (`/`)
+- `functions/dotpaper.js`: image API (`/dotpaper`)
+- `functions/api/index.js`: usage alias (`/api`)
+- `functions/api/dotpaper.js`: image API alias (`/api/dotpaper`)
 - `edgeone.json`: EdgeOne Pages runtime config
 
 ## Local Run
