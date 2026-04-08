@@ -2,7 +2,7 @@ import { createRequire } from 'node:module';
 import { usageHtml, responseHtml, methodNotAllowed } from './_usage.js';
 
 const require = createRequire(import.meta.url);
-const { generateProgressImage } = require('../lib/progress-image.js');
+const { generateProgressImage } = require('./progress-image.cjs');
 
 function searchParamsToObject(searchParams) {
   const obj = {};
