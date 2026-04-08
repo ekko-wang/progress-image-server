@@ -1,8 +1,7 @@
-import { createRequire } from 'node:module';
 import { usageHtml, responseHtml, methodNotAllowed } from './_usage.js';
+import progressImageModule from './progress-image.cjs';
 
-const require = createRequire(import.meta.url);
-const { generateProgressImage } = require('./progress-image.cjs');
+const { generateProgressImage } = progressImageModule;
 
 function searchParamsToObject(searchParams) {
   const obj = {};
