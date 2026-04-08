@@ -1,4 +1,4 @@
-function usageHtml(base) {
+export function usageHtml(base) {
   const links = [
     { label: '本日', href: `${base}?viewType=today` },
     { label: '本月', href: `${base}?viewType=month` },
@@ -38,7 +38,7 @@ function usageHtml(base) {
 </html>`;
 }
 
-function responseHtml(html, status = 200) {
+export function responseHtml(html, status = 200) {
   return new Response(html, {
     status,
     headers: {
@@ -48,13 +48,6 @@ function responseHtml(html, status = 200) {
   });
 }
 
-function methodNotAllowed() {
+export function methodNotAllowed() {
   return new Response('Method Not Allowed', { status: 405 });
 }
-
-module.exports = {
-  usageHtml,
-  responseHtml,
-  methodNotAllowed
-};
-

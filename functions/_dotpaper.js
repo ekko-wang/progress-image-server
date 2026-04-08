@@ -1,5 +1,8 @@
-const { generateProgressImage } = require('../lib/progress-image');
-const { usageHtml, responseHtml, methodNotAllowed } = require('./_usage');
+import { createRequire } from 'node:module';
+import { usageHtml, responseHtml, methodNotAllowed } from './_usage.js';
+
+const require = createRequire(import.meta.url);
+const { generateProgressImage } = require('../lib/progress-image.js');
 
 function searchParamsToObject(searchParams) {
   const obj = {};
@@ -9,7 +12,7 @@ function searchParamsToObject(searchParams) {
   return obj;
 }
 
-async function handleDotpaperRequest(context, dotpaperPath = '/dotpaper') {
+export async function handleDotpaperRequest(context, dotpaperPath = '/dotpaper') {
   const request = context.request;
   if (request.method !== 'GET') {
     return methodNotAllowed();
@@ -42,8 +45,3 @@ async function handleDotpaperRequest(context, dotpaperPath = '/dotpaper') {
     });
   }
 }
-
-module.exports = {
-  handleDotpaperRequest
-};
-

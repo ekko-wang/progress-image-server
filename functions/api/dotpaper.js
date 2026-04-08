@@ -1,14 +1,5 @@
-const { handleDotpaperRequest } = require('../_dotpaper');
+import { handleDotpaperRequest } from '../_dotpaper.js';
 
-async function onRequest(context) {
+export async function onRequest(context) {
   return handleDotpaperRequest(context, '/api/dotpaper');
 }
-
-async function onRequestGet(context) {
-  return handleDotpaperRequest({ ...context, request: context.request }, '/api/dotpaper');
-}
-
-module.exports = onRequest;
-module.exports.onRequest = onRequest;
-module.exports.onRequestGet = onRequestGet;
-module.exports.default = onRequest;

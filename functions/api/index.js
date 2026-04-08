@@ -1,4 +1,4 @@
-const { usageHtml, responseHtml, methodNotAllowed } = require('../_usage');
+import { usageHtml, responseHtml, methodNotAllowed } from '../_usage.js';
 
 async function onRequestGet(context) {
   const request = context.request;
@@ -7,15 +7,10 @@ async function onRequestGet(context) {
   return responseHtml(usageHtml(base));
 }
 
-async function onRequest(context) {
+export async function onRequest(context) {
   const request = context.request;
   if (request.method !== 'GET') {
     return methodNotAllowed();
   }
   return onRequestGet(context);
 }
-
-module.exports = onRequest;
-module.exports.onRequest = onRequest;
-module.exports.onRequestGet = onRequestGet;
-module.exports.default = onRequest;
