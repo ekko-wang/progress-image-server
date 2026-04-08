@@ -8,8 +8,7 @@ async function onRequestGet(context) {
   return handleDotpaperRequest({ ...context, request: context.request }, '/api/dotpaper');
 }
 
-module.exports = {
-  onRequest,
-  onRequestGet,
-  default: onRequest
-};
+module.exports = onRequest;
+module.exports.onRequest = onRequest;
+module.exports.onRequestGet = onRequestGet;
+module.exports.default = onRequest;

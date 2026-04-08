@@ -15,8 +15,7 @@ async function onRequest(context) {
   return onRequestGet(context);
 }
 
-module.exports = {
-  onRequest,
-  onRequestGet,
-  default: onRequest
-};
+module.exports = onRequest;
+module.exports.onRequest = onRequest;
+module.exports.onRequestGet = onRequestGet;
+module.exports.default = onRequest;
