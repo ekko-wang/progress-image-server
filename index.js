@@ -30,6 +30,9 @@ function sendUsageResponse(req, res) {
     ul { margin: 8px 0 0; padding-left: 18px; }
     li { margin: 8px 0; }
     a { color: #9fe870; text-decoration: none; }
+    .beian { max-width: 760px; margin: 16px auto 0; text-align: center; color: #8f929a; font-size: 12px; }
+    .beian a { color: #8f929a; }
+    .beian a:hover { color: #9fe870; }
     code { color: #f27a49; }
   </style>
 </head>
@@ -42,6 +45,9 @@ function sendUsageResponse(req, res) {
       ${links.map((it) => `<li><a href="${it.href}" target="_blank" rel="noreferrer">${it.label}</a></li>`).join('')}
     </ul>
   </div>
+  <footer class="beian">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">津ICP备2026004179号</a>
+  </footer>
 </body>
 </html>`;
 

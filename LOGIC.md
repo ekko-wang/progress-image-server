@@ -17,7 +17,7 @@
 - **依赖说明**：
   - `jimp`：纯 JS 图片处理库，用于在内存中生成 PNG。
   - `dayjs`：轻量日期库，需额外加载 `dayjs/plugin/weekOfYear` 插件才能使用 `.week()` 方法（按周模式依赖此插件）。
-  - `express`：本地开发时使用的 HTTP 服务框架（Vercel 部署时不需要）。
+  - `express`：本地开发时使用的 HTTP 服务框架（EdgeOne Pages 部署时不需要）。
 
 ## 二、接口行为
 
@@ -185,7 +185,7 @@
 - 自定义日期范围：
   - `GET /dotpaper?viewType=range&startDate=20260101&endDate=20261231&width=1080&height=1920`
 - 生日模式（人生进度）：
-  - `GET https://progress-image-server.vercel.app/dotpaper?viewType=birthday&birthDate=19900101&width=1080&height=1920`
+  - `GET /dotpaper?viewType=birthday&birthDate=19900101&width=1080&height=1920`
 
 
 > **维护要求**：今后如果修改了日期计算规则、状态定义、圆点样式（大小、颜色、布局）或接口参数格式，务必同步更新本文件对应章节，保证文档与代码一致，方便以后查阅和排错。
